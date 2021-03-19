@@ -56,22 +56,26 @@ module.exports.list = async event => {
 }
 
 module.exports.listByTags = async event => {
-  await this.connect()
+  try {
+    await this.connect()
 
-  const TipModel = this.Model()
+    const TipModel = this.Model()
 
-  const { tags } = event.pathParameters
+    const { tags } = event.pathParameters
 
-  const tagsArray = tags.split(',')
+    const tagsArray = tags.split(',')
 
-  const tips = await TipModel.find({ tags: { $in: tagsArray } })
+    const tips = await TipModel.find({ tags: { $in: tagsArray } })
 
-  const tipsFiltered = tips.filter(tip =>
-    tagsArray.every(tagArray => tip.tags.includes(tagArray))
-  )
+    const tipsFiltered = tips.filter(tip =>
+      tagsArray.every(tagArray => tip.tags.includes(tagArray))
+    )
 
-  return {
-    statusCode: 200,
-    body: JSON.stringify(tipsFiltered),
+    return {
+      statusCode: 200,
+      body: JSON.stringify(tipsFiltered),
+    }
+  } catch (error) {
+    console.error(error)
   }
 }
