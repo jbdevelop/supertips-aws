@@ -1,0 +1,39 @@
+service: supertips
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  stage: dev
+  region: sa-east-1
+  memorySize: 256
+  iam:
+    role: arn:aws:iam::823383387971:role/supertip
+  environment:
+    DATABASE_USERNAME: admin
+    DATABASE_PASSWORD: rRimjy6F8c1EYYl4
+    DATABASE_HOST: cluster0.kwono.mongodb.net
+    DATABASE_NAME: supertips
+    DATABASE_URL_PARAMS: retryWrites=true&w=majority
+
+functions:
+  create:
+    handler: handler.create
+    events:
+      - http:
+          path: create
+          method: post
+  list:
+    handler: handler.list
+    events:
+      - http:
+          path: list
+          method: get
+  listByTags:
+    handler: handler.listByTags
+    events:
+      - http:
+          path: list/tags/{tags}
+          method: get

@@ -1,0 +1,17 @@
+{
+  "name": "supertips",
+  "version": "1.0.0",
+  "description": "",
+  "main": "supertips.js",
+  "scripts": {
+    "deploy": "serverless deploy -v"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^3.6.5",
+    "mongoose": "^5.12.0"
+  },
+  "devDependencies": {}
+}
